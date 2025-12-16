@@ -1,6 +1,6 @@
 # 5 Days Ashore
 
-5 Days Ashore is a compact third-person survival game set on a remote island. Gather supplies, survive five in-game days, and hold out against nightly enemy waves.
+5 Days Ashore is a tense survival adventure where you awaken shipwrecked on a mysterious island with only one life to spare. By day, you gather resources, craft tools, and prepare defenses. By night, the island transforms into a nightmare, unleashing packs of monsters that grow more aggressive each night. Survive four relentless nights to reach rescue on the fifth day.
 
 ## Quick Start
 
