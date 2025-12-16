@@ -43,4 +43,7 @@
 - Drinking nodes refill hydration instantly and do not need a tool equipped.
 - Crafting pulls ingredients straight from your inventory, so keep it stocked.
 - Healing pyramids scattered around the island work at night but stay dormant during the day.
-- Monsters will drop meat, use wisely since they are your only source of food. They can also be crafted into potion. Monsters will increase in spawn every night. 
+- Monsters will drop meat, use wisely since they are your only source of food. They can also be crafted into potion. Monsters will increase in spawn every night.
+
+## Demo Video
+https://www.youtube.com/watch?v=MnN8Pz3SewM
