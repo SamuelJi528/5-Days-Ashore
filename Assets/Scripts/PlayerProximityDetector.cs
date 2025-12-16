@@ -8,11 +8,13 @@ public class PlayerProximityDetector : MonoBehaviour
 {
     public TextMeshProUGUI interactionPromptText;   // UI text for showing interaction hints
     public float grabDelay = 0.4f;                  
+    public float promptRange = 2f;
 
     private List<ResourceNode> nearbyNodes = new List<ResourceNode>(); // All resource nodes in trigger range
     private ResourceNode focusedNode = null;        // The node the player is currently focusing on
     private PlayerControl playerControl;            
     private bool isGathering = false;              
+    private float focusedNodeDistance = float.MaxValue;
 
     void Start()
     {
@@ -39,7 +41,7 @@ public class PlayerProximityDetector : MonoBehaviour
         // Always pick the closest node to interact with
         FindClosestNode();
 
-        if (focusedNode != null && !isGathering)
+        if (focusedNode != null && !isGathering && focusedNodeDistance <= promptRange)
         {
             // Decide what prompt to show based on interaction type
             if (focusedNode.interactionType == ResourceInteractionType.Drink)
@@ -106,13 +108,26 @@ public class PlayerProximityDetector : MonoBehaviour
         // Pick the closest node in range
         foreach (ResourceNode node in nearbyNodes)
         {
-            float distance = Vector3.Distance(transform.position, node.transform.position);
+            float distance = float.MaxValue;
+            Collider nodeCollider = node.GetComponent<Collider>();
+            if (nodeCollider != null)
+            {
+                Vector3 closestPoint = nodeCollider.ClosestPoint(transform.position);
+                distance = Vector3.Distance(transform.position, closestPoint);
+            }
+            else
+            {
+                distance = Vector3.Distance(transform.position, node.transform.position);
+            }
+
             if (distance < closestDistance)
             {
                 closestDistance = distance;
                 focusedNode = node;
             }
         }
+
+        focusedNodeDistance = focusedNode != null ? closestDistance : float.MaxValue;
     }
 
     private void DisplayPrompt(string text)

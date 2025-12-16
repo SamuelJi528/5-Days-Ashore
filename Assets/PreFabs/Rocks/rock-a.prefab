@@ -129,6 +129,6 @@ MonoBehaviour:
   promptText: 
   toolRequired: 3
   resourceHealth: 1
-  animationTrigger: Gather
+  animationTrigger: Chop
   gatherDelay: 0.5
   drinkAmount: 25
