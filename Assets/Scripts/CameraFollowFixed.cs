@@ -6,32 +6,38 @@ using UnityEngine;
 public class IsoFollowCamera : MonoBehaviour
 {
     [Header("Target")]
-    public Transform target;                 // If null we'll find tag=Player on Awake
+    public Transform target;
 
-    [Header("View (Don't Starve style)")]
-    [Range(20f, 70f)] public float pitch = 45f;     // tilt down toward ground
-    [Range(0f, 360f)] public float yaw = 45f;       // fixed isometric yaw
-    [Min(0.5f)] public float distance = 12f;        // boom length
-    public Vector3 pivotOffset = new Vector3(0f, 1.4f, 0f); // where we look on the target
+    [Header("View")]
+    [Range(20f, 70f)] public float pitch = 45f;
+    [Range(0f, 360f)] public float yaw = 45f;
+    [Min(0.5f)] public float distance = 12f;
+    public Vector3 pivotOffset = new Vector3(0f, 1.4f, 0f);
 
     [Header("Camera")]
-    [Range(15f, 60f)] public float fieldOfView = 30f;  // narrow FOV = subtle perspective
-    [Range(0f, 0.5f)] public float damping = 0.12f;    // smoothing time (seconds)
+    [Range(15f, 60f)] public float fieldOfView = 30f;
+    [Range(0f, 0.5f)] public float damping = 0.12f;
 
     [Header("Collision")]
     public LayerMask clipMask = ~0;
     [Min(0f)] public float collisionRadius = 0.25f;
-    [Min(0f)] public float collisionPadding = 0.08f;   // keep camera off the wall a bit
-    [Min(0.3f)] public float minDistance = 1.2f;       // never get closer than this
+    [Min(0f)] public float collisionPadding = 0.08f;
+    [Min(0.3f)] public float minDistance = 1.2f;
+
+    [Header("Rotate View")]
+    public KeyCode rotateKey = KeyCode.T;
+    public float rotateStep = 180f;
 
     Camera _cam;
-    Vector3 _vel; // for SmoothDamp
+    Vector3 _vel;
 
     void Awake()
     {
+        // Get the camera on this object
         _cam = GetComponent<Camera>();
         ApplyFov();
 
+        // If no target is set, try to find the player
         if (!target)
         {
             var p = GameObject.FindWithTag("Player");
@@ -42,6 +48,7 @@ public class IsoFollowCamera : MonoBehaviour
 #if UNITY_EDITOR
     void OnValidate()
     {
+        // Update camera settings while editing in Unity
         if (!_cam) _cam = GetComponent<Camera>();
         ApplyFov();
         pitch = Mathf.Clamp(pitch, 20f, 70f);
@@ -52,57 +59,70 @@ public class IsoFollowCamera : MonoBehaviour
     {
         if (!target) return;
 
+        // Rotate the view when the key is pressed
+        if (Application.isPlaying && Input.GetKeyDown(rotateKey))
+            yaw = Mathf.Repeat(yaw + rotateStep, 360f);
+
+        // Find the point the camera should look at
         Vector3 pivot = GetPivot(target) + pivotOffset;
 
-        // Ideal orbit position at fixed isometric angle
+        // Figure out where the camera wants to be
         Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
-        Vector3 boomDir = rot * Vector3.back;                 // points from pivot to camera
+        Vector3 boomDir = rot * Vector3.back;
         Vector3 idealPos = pivot + boomDir * distance;
 
-        // Collision: shorten boom if obstructed
+        // Check if something blocks the camera
         Vector3 toCam = idealPos - pivot;
         float rayLen = toCam.magnitude;
-        Vector3 dir = rayLen > 1e-4f ? toCam / rayLen : boomDir;
+        Vector3 dir = rayLen > 0f ? toCam / rayLen : boomDir;
 
         if (Physics.SphereCast(pivot, collisionRadius, dir, out RaycastHit hit, rayLen, clipMask, QueryTriggerInteraction.Ignore))
         {
+            // Move the camera closer so it doesn't clip through walls
             float d = Mathf.Max(minDistance, hit.distance - collisionPadding);
             idealPos = pivot + dir * d;
         }
 
-        // Smooth follow for position; locked look-at for that “tabletop” feel
+        // Smoothly move the camera toward the final spot
         transform.position = Vector3.SmoothDamp(transform.position, idealPos, ref _vel, damping);
+
+        // Make the camera face the target point
         transform.rotation = Quaternion.LookRotation(pivot - transform.position, Vector3.up);
     }
 
-   Vector3 GetPivot(Transform t)
-{
-    var anchor = t.Find("CameraAnchor");
-    if (anchor) return anchor.position;
+    Vector3 GetPivot(Transform t)
+    {
+        // If there is a CameraAnchor child, use that
+        var anchor = t.Find("CameraAnchor");
+        if (anchor) return anchor.position;
 
-    var cc = t.GetComponent<CharacterController>();
-    if (cc) return t.position + Vector3.up * Mathf.Max(1f, cc.height * 0.5f);
+        // If the object has a CharacterController, use its height
+        var cc = t.GetComponent<CharacterController>();
+        if (cc) return t.position + Vector3.up * Mathf.Max(1f, cc.height * 0.5f);
 
-    var rend = t.GetComponentInChildren<Renderer>();
-    if (rend) return rend.bounds.center;
+        // Otherwise try using the renderer's center
+        var rend = t.GetComponentInChildren<Renderer>();
+        if (rend) return rend.bounds.center;
 
-    return t.position;
-}
-
+        // Last fallback: just use the object's position
+        return t.position;
+    }
 
     void ApplyFov()
     {
+        // Make sure the camera uses perspective mode and correct FOV
         if (_cam)
         {
-            _cam.orthographic = false;  // DS uses perspective
+            _cam.orthographic = false;
             _cam.fieldOfView = fieldOfView;
         }
     }
 
-    // Optional nice editor gizmo so you can see the boom in Scene view
     void OnDrawGizmosSelected()
     {
+        // Draw a line and sphere in the editor so we can see the camera's setup
         if (!target) return;
+
         Vector3 pivot = GetPivot(target) + pivotOffset;
         Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
         Vector3 boomDir = rot * Vector3.back;
