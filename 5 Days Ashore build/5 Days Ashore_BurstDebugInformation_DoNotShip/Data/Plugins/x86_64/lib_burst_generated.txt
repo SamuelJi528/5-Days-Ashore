@@ -11,7 +11,6 @@ Library: D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generat
 --linker-options=PdbAltPath="5 Days Ashore_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\5-Days-Ashore\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=D:\5-Days-Ashore\Library\Burst
 --output=D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -35,7 +34,6 @@ Library: D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generat
 --linker-options=PdbAltPath="5 Days Ashore_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\5-Days-Ashore\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=D:\5-Days-Ashore\Library\Burst
 --output=D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -59,7 +57,6 @@ Library: D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generat
 --linker-options=PdbAltPath="5 Days Ashore_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\5-Days-Ashore\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=D:\5-Days-Ashore\Library\Burst
 --output=D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -177,7 +174,6 @@ Library: D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generat
 --linker-options=PdbAltPath="5 Days Ashore_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\5-Days-Ashore\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=D:\5-Days-Ashore\Library\Burst
 --output=D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -297,7 +293,6 @@ Library: D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generat
 --linker-options=PdbAltPath="5 Days Ashore_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\5-Days-Ashore\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=D:\5-Days-Ashore\Library\Burst
 --output=D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -319,7 +314,6 @@ Library: D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generat
 --linker-options=PdbAltPath="5 Days Ashore_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\5-Days-Ashore\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=D:\5-Days-Ashore\Library\Burst
 --output=D:\5-Days-Ashore\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
